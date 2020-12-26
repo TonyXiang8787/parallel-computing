@@ -58,6 +58,34 @@ private:
 	std::vector<Element> vec_;
 };
 
+class PtrContainer {
+public:
+	PtrContainer(std::vector<Arr> const& vec) {
+		vec_.reserve(vec.size());
+		std::transform(
+			vec.cbegin(),
+			vec.cend(),
+			std::back_inserter(vec_),
+			[](Arr const& x) { return std::make_shared<Element const>(x); }
+		);
+	}
+
+	Element const& operator[] (size_t i) const { return *vec_[i]; }
+
+	void mutate(size_t i, Arr const& value) {
+		Element e = *vec_[i];
+		e.mutate(value);
+		vec_[i] = std::make_shared<Element const>(e);
+	}
+
+private:
+	std::vector<std::shared_ptr<Element const>> vec_;
+};
+
+struct Result {
+	double min, max, mean, sum;
+};
+
 
 int main()
 {
