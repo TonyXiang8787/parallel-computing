@@ -82,8 +82,23 @@ private:
 	std::vector<std::shared_ptr<Element const>> vec_;
 };
 
+
 struct Result {
 	double min, max, mean, sum;
+};
+
+struct Mutation {
+	size_t index;
+	Arr value;
+};
+
+
+template<class Container>
+class Model {
+public:
+
+private:
+	Container container_;
 };
 
 
