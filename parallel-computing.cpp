@@ -7,6 +7,7 @@
 #include <functional>
 #include <memory>
 #include <iostream>
+#include <limits>
 
 constexpr size_t N = 16;
 
@@ -23,13 +24,15 @@ public:
 	}
 
 	double rms() const {
-		return std::transform_reduce(
-			value_.cbegin(),
-			value_.cend(),
-			0.0,
-			std::plus{},
-			[](double a) { return a * a; }
-		) / value_.size();
+		return std::sqrt(
+			std::transform_reduce(
+				value_.cbegin(), value_.cend(),
+			    0.0,
+				std::plus{},
+				[](double a) { return a * a; }
+			) 
+			/ value_.size()
+		);
 	}
 private:
 	Arr value_;
@@ -49,6 +52,8 @@ public:
 	}
 
 	Element const& operator[] (size_t i) const { return vec_[i]; }
+
+	size_t size() const { return vec_.size(); }
 
 	void mutate(size_t i, Arr const& value) {
 		vec_[i].mutate(value);
@@ -71,6 +76,8 @@ public:
 	}
 
 	Element const& operator[] (size_t i) const { return *vec_[i]; }
+
+	size_t size() const { return vec_.size(); }
 
 	void mutate(size_t i, Arr const& value) {
 		Element e = *vec_[i];
@@ -101,7 +108,26 @@ public:
 	{}
 
 	Result caculate() const {
+		Result result{
+			std::numeric_limits<double>::infinity(),
+			-std::numeric_limits<double>::infinity(),
+			0.0,
+			0.0
+		};
+		
+		for (size_t i = 0; i != container_.size(); ++i) {
+			double const rms = container_[i].rms();
+			if (rms > result.max) {
+				result.max = rms;
+			}
+			if (rms < result.min) {
+				result.min = rms;
+			}
+			result.sum += rms;
+		}
+		result.mean = result.sum / container_.size();
 
+		return result;
 	}
 
 	void mutate(std::vector<Mutation> const& mutations) {
