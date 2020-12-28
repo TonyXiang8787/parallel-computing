@@ -96,6 +96,21 @@ struct Mutation {
 template<class Container>
 class Model {
 public:
+	Model(std::vector<Arr> const& vec) :
+		container_{ vec }
+	{}
+
+	Result caculate() const {
+
+	}
+
+	void mutate(std::vector<Mutation> const& mutations) {
+		std::for_each(
+			mutations.cbegin(),
+			mutations.cend(),
+			[this](Mutation mutation) { container_.mutate(mutation.index, mutation.value); }
+		);
+	}
 
 private:
 	Container container_;
