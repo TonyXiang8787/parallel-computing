@@ -21,7 +21,7 @@ Arr get_array(double rms) {
 	Arr arr{};
 	double const m = rms / std::sqrt(2);
 	for (size_t i = 0; i != N; ++i) {
-		arr[i] = std::cos(2 * M_PI / N * i);
+		arr[i] = m * std::cos(2 * M_PI / N * i);
 	}
 	return arr;
 }
