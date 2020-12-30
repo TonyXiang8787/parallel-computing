@@ -1,4 +1,7 @@
 ﻿
+#define NOMINMAX
+#define _USE_MATH_DEFINES
+
 #include <array>
 #include <vector>
 #include <random>
@@ -13,6 +16,15 @@
 constexpr size_t N = 16;
 
 using Arr = std::array<double, N>;
+
+Arr get_array(double rms) {
+	Arr arr{};
+	double const m = rms / std::sqrt(2);
+	for (size_t i = 0; i != N; ++i) {
+		arr[i] = std::cos(2 * M_PI / N * i);
+	}
+	return arr;
+}
 
 class Element {
 public:
