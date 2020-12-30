@@ -8,6 +8,7 @@
 #include <memory>
 #include <iostream>
 #include <limits>
+#include <thread>
 
 constexpr size_t N = 16;
 
@@ -145,6 +146,7 @@ private:
 
 int main()
 {
+	std::cout << "cores: " << std::thread::hardware_concurrency() << '\n';
 	std::cout << "Hello CMake." << '\n';
 	return 0;
 }
