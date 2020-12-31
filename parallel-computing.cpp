@@ -21,7 +21,7 @@ constexpr size_t N = 16;
 constexpr size_t n_array = 100;
 constexpr size_t n_batch = 16;
 #else
-constexpr size_t n_array = 10000;
+constexpr size_t n_array = 100000;
 constexpr size_t n_batch = 128;
 #endif
 
@@ -111,7 +111,7 @@ public:
 				value_.cbegin(), value_.cend(),
 			    0.0,
 				std::plus{},
-				[](double a) { return a * a + std::sin(a) + std::cos(a) + std::acos(a) + std::asin(a); }
+				[](double a) { return a * a + std::sin(a) + std::cos(a); }
 			) 
 			/ value_.size()
 		);
@@ -217,17 +217,28 @@ public:
 		Mutations const& mutations,
 		std::vector<Result>& results) const {
 		Model<Container> model{ *this };
-		std::transform(
-			mutations.cbegin(), mutations.cend(),
-			results.begin(),
-			[this, &model](Mutation const& mutation) {
-				if constexpr (reset_model) {
+		if constexpr (reset_model) {
+			std::transform(
+				mutations.cbegin(), mutations.cend(),
+				results.begin(),
+				[this, &model](Mutation const& mutation) {
 					model = *this;
+					model.mutate(mutation);
+					return model.calculate();
 				}
-				model.mutate(mutation);
-				return model.calculate();
-			}
-		);
+			);
+		}
+		else {
+			std::transform(
+				mutations.cbegin(), mutations.cend(),
+				results.begin(),
+				[this, &model](Mutation const& mutation) {
+					model.mutate(mutation);
+					return model.calculate();
+				}
+			);
+		}
+		
 	}
 
 	void calculate_stl_par(
