@@ -71,7 +71,7 @@ Input gen_input() {
 	std::transform(
 		input.cbegin(), input.cend(), 
 		input.begin(),
-		[&](auto x) { return get_array(norm(gen)); }
+		[&](auto) { return get_array(norm(gen)); }
 	);
 	return input;
 }
@@ -83,7 +83,7 @@ Mutations gen_mutation() {
 	std::transform(
 		mutations.cbegin(), mutations.cend(),
 		mutations.begin(),
-		[&](auto x) { 
+		[&](auto) { 
 			Mutation mutation(n_mutation);
 			for (size_t i = 0; i != n_mutation; ++i) {
 				mutation[i] = { i * mutation_stride,  get_array(norm(gen)) };
