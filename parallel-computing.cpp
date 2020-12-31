@@ -316,6 +316,7 @@ int main()
 	auto const result_thread_par_ptr = ptr_model.calculate_and_benchmark<&PtrModel::calculate_thread_par<false>>(mutations);
 	auto const result_thread_par_ptr_reset = ptr_model.calculate_and_benchmark<&PtrModel::calculate_thread_par<true>>(mutations);
 
+	std::cout << "Array: " << n_array << ", batch:" << n_batch << "\n\n";
 
 	std::cout << "Time of sequence calculation of value container without reset: " << result_seq_value.time << '\n';
 	std::cout << "Time of sequence calculation of value container with reset: " << result_seq_value_reset.time << '\n';
