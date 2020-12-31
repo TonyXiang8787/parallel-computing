@@ -19,4 +19,14 @@ endif()
 # Add source to this project's executable.
 add_executable (parallel-computing "parallel-computing.cpp" )
 
+# thread
+if(WIN32)
+else()
+	find_package(Threads)
+	target_link_libraries(parallel-computing INTERFACE ${CMAKE_THREAD_LIBS_INIT})
+	find_package(TBB CONFIG REQUIRED)
+    target_link_libraries(parallel-computing PRIVATE TBB::tbb)
+endif()
+
+
 # TODO: Add tests and install targets if needed.
