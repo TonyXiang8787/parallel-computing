@@ -25,7 +25,7 @@ else()
 	find_package(TBB CONFIG REQUIRED)
     target_link_libraries(parallel-computing PRIVATE TBB::tbb)
 	find_package(Threads)
-	target_link_libraries(parallel-computing INTERFACE ${CMAKE_THREAD_LIBS_INIT})
+	target_link_libraries(parallel-computing PRIVATE ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
 
