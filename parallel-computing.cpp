@@ -232,7 +232,7 @@ public:
 			std::transform(
 				mutations.cbegin(), mutations.cend(),
 				results.begin(),
-				[this, &model](Mutation const& mutation) {
+				[&model](Mutation const& mutation) {
 					model.mutate(mutation);
 					return model.calculate();
 				}
