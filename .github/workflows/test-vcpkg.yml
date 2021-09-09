@@ -19,5 +19,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: prepare conda environments
         run: |
-          .\.github\conda-windows.ps1
+          ${{ env.CONDA }}\bin\conda create --yes -p C:\conda_envs\cpp_pkgs -c conda-forge python=3.9
+          ${{ env.CONDA }}\bin\conda" activate cpp_pkgs
+          conda install --yes -c conda-forge boost-cpp eigen nlohmann_json mkl mkl-devel
 
