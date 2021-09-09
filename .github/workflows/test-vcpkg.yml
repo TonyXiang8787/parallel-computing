@@ -19,7 +19,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: prepare conda environments
         run: |
-          C:\Miniconda\bin\conda create --yes -p C:\conda_envs\cpp_pkgs -c conda-forge python=3.9
-          C:\Miniconda\bin\conda activate cpp_pkgs
+          dir C:\Miniconda
+          C:\Miniconda\condabin\conda create --yes -p C:\conda_envs\cpp_pkgs -c conda-forge python=3.9
+          C:\Miniconda\condabin\conda activate cpp_pkgs
           conda install --yes -c conda-forge boost-cpp eigen nlohmann_json mkl mkl-devel
 
