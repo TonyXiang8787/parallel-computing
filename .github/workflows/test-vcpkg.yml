@@ -2,20 +2,25 @@
 
 name: vcpkg
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
 
 
 jobs:
   prepare-env:
-    # The type of runner that the job will run on
     runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
-
+      
+      - name: cache conda envs
+        uses: actions/cache@v2
+        env:
+          cache-name: conda-envs-windows
+        with:
+          path: C:\conda_envs
+          key: conda-envs-windows-1
+      
       # Runs a set of commands using the runners shell
       - name: activate conda environments
         run: |
@@ -23,4 +28,32 @@ jobs:
       - name: prepare conda environments
         run: |
           .\.github\conda-windows.ps1
+  
+  show-env:
+    runs-on: windows-latest
+    needs: prepare-env
+    strategy:
+      matrix:
+        python-version: [cp37-cp37m, cp38-cp38, cp39-cp39]
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: cache conda envs
+        uses: actions/cache@v2
+        env:
+          cache-name: conda-envs-windows
+        with:
+          path: C:\conda_envs
+          key: conda-envs-windows-1
+        
+      - name: activate conda environments
+        run: |
+          C:\Miniconda\condabin\conda init
+      
+      - name: show conda list
+        run: |
+          conda activate C:\conda_envs\${{ matrix.python-version }}
+          conda list
+      
 
