@@ -19,7 +19,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: activate conda environments
         run: |
-          C:\Miniconda\condabin\conda init
+          ${CONDA}\condabin\conda init
       - name: prepare conda environments
         run: |
           .\.github\conda-windows.ps1
