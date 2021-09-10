@@ -19,7 +19,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: activate conda environments
         run: |
-          C:\Miniconda\condabin\conda activate base
+          C:\Miniconda\condabin\conda init
       - name: prepare conda environments
         run: |
           conda create --yes -p C:\conda_envs\cpp_pkgs -c conda-forge python=3.9
