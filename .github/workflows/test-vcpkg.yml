@@ -21,7 +21,7 @@ jobs:
         env:
           cache-name: conda-envs-macos
         with:
-          path: ${HOME}/conda_envs/cpp_pkgs
+          path: ${{ env.HOME }}/conda_envs/cpp_pkgs
           key: conda-envs-macos-2
       
       - name: Install conda cpp package
