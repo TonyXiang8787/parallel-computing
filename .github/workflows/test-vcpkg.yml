@@ -12,8 +12,20 @@ jobs:
     runs-on: macos-latest
     
     steps:
+    
+      - uses: actions/checkout@v2
 
-      - name: install conda cpp package
+      - name: Cache conda cpp package
+        uses: actions/cache@v2
+        id: cache
+        env:
+          cache-name: conda-envs-macos
+        with:
+          path: ${HOME}/conda_envs/cpp_pkgs
+          key: conda-envs-macos-1
+      
+      - name: Install conda cpp package
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           sudo ${CONDA}/bin/conda create --yes -p ${HOME}/conda_envs/cpp_pkgs -c conda-forge python=3.9 boost-cpp eigen nlohmann_json mkl mkl-devel mkl-include catch2 
           
