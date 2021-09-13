@@ -92,5 +92,5 @@ jobs:
       - name: show
         run: |
           echo ${HOME}
-          ls ${HOME}/conda_envs/cpp_pkgs/Library/include
-          cat ${HOME}/conda_envs/cpp_pkgs/Library/include/mkl.h
+          ls ${HOME}/conda_envs/cpp_pkgs/include
+          cat ${HOME}/conda_envs/cpp_pkgs/include/mkl.h
