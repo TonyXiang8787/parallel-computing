@@ -86,7 +86,8 @@ jobs:
     steps:
       - name: activate conda environments
         run: |
-          ${CONDA}/conda init
+          source ${CONDA}/bin/activate
+          conda init
       
       - name: install conda cpp package
         run: |
