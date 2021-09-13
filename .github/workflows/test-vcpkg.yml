@@ -79,5 +79,9 @@ jobs:
         run: |
           conda activate C:\conda_envs\${{ matrix.python-version }}
           conda list
+          
+  macos-env:
+    runs-on: macos-latest
+    
       
 
