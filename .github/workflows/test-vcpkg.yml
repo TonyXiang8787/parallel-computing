@@ -11,8 +11,8 @@ jobs:
   macos-env:
     runs-on: macos-latest
     env:
-      MKL_INCLUDE: ${HOME}/conda_envs/cpp_pkgs/include
-      MKL_LIB: ${HOME}/conda_envs/cpp_pkgs/lib
+      MKL_INCLUDE: ~/conda_envs/cpp_pkgs/include
+      MKL_LIB: ~/conda_envs/cpp_pkgs/lib
     steps:
     
       - uses: actions/checkout@v2
@@ -20,10 +20,10 @@ jobs:
       
       - name: Install conda cpp package
         run: |
-          sudo ${CONDA}/bin/conda create --yes -p ${HOME}/conda_envs/cpp_pkgs -c conda-forge python=3.9 boost-cpp eigen nlohmann_json mkl mkl-devel mkl-include catch2 
+          sudo ${CONDA}/bin/conda create --yes -p ~/conda_envs/cpp_pkgs -c conda-forge python=3.9 boost-cpp eigen nlohmann_json mkl mkl-devel mkl-include catch2 
           
       - name: show
         run: |
-          echo ${HOME}
-          ls ${HOME}/conda_envs/cpp_pkgs/include
-          cat ${HOME}/conda_envs/cpp_pkgs/include/mkl.h
+          echo ${MKL_INCLUDE}
+          ls ${MKL_INCLUDE}
+          cat ${MKL_INCLUDE}/mkl.h
